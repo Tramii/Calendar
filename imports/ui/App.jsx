@@ -1,6 +1,9 @@
 import React, {Component} from "react";
-import {PropTypes} from "prop-types";
 import { Meteor } from "meteor/meteor";
+import { Well, Button, Thumbnail } from 'react-bootstrap';
+
+//import googleApis from './googleApi.js';
+
 
 export  default class App extends Component {
 
@@ -9,13 +12,19 @@ export  default class App extends Component {
   }
 
   render() {
-    console.log("render!");
-    //const tweets = this.props.tweets;
 
     return (
       <div>
-        <div>hola</div>
-
+        <br/><br/><br/><br/>
+        <Well className="col-md-12">
+          <Thumbnail className="col-md-5">
+            Lista de Eventos por asignar
+          </Thumbnail>
+          <div className="col-md-2"></div>
+          <Thumbnail className="col-md-5">
+            Editar eventos creados
+          </Thumbnail>
+        </Well>
       </div>
     );
   }
