@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import { Meteor } from "meteor/meteor";
 import { Well, Button, Thumbnail } from 'react-bootstrap';
-
+import AccountsUIWrapper from './AccountsUIWrapper.jsx';
 //import googleApis from './googleApi.js';
 
 
@@ -15,6 +15,7 @@ export  default class App extends Component {
 
     return (
       <div>
+        <AccountsUIWrapper/>
         <br/><br/><br/><br/>
         <Well className="col-md-12">
           <Thumbnail className="col-md-5 center">
