@@ -1,6 +1,6 @@
-//var fs = require('fs');
-//var readline = require('readline');
-var google = require('googleapis');
+console.log("modulo google apis");
+
+var readline = require('readline');
 var googleAuth = require('google-auth-library');
 
 console.log("modulo google apis");
