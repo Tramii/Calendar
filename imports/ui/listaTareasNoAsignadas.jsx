@@ -3,24 +3,28 @@ import { Meteor } from "meteor/meteor";
 import { Well, Button, Thumbnail } from 'react-bootstrap';
 import AccountsUIWrapper from './AccountsUIWrapper.jsx';
 //import googleApis from './googleApi.js';
+import { createContainer } from 'meteor/react-meteor-data';
+import moment from 'moment';
+import { HTTP } from 'meteor/http';
 
-
-export  default class App extends Component {
+class ListaTareasNoAsignadas extends Component {
 
   constructor(props) {
     super(props);
-    this.user = Meteor.user();
+    this.user = "";
+
   }
 
-  buscar(){
-    if (this.user && this.user.services && this.user.services.google &&
-          this.user.services.google.accessToken) {
+  agregar(){
+    var event = {startTime:"2017-05-24 13:00:00" , endTime:"2017-05-24 14:00:00" , name:"hola", location:"Casa"};
+    if (this.props.currentUser && this.props.currentUser.services
+      && this.props.currentUser.services.google &&
+          this.props.currentUser.services.google.accessToken) {
       var startTimeUTC = moment.utc(event.startTime, "YYYY-MM-DD HH:mm:ss").format();
       var endTimeUTC = moment.utc(event.endTime, "YYYY-MM-DD HH:mm:ss").format();
       console.log("POSTINGGCAL");
       if (moment.utc().unix() < moment.utc(event.endTime).unix()) {
-        console.log("ENTERGCAL");
-        var id = Meteor.http.post("https://www.googleapis.com/calendar/v3/calendars/primary/events", {
+        var id = HTTP.call('POST',"https://www.googleapis.com/calendar/v3/calendars/primary/events", {
           'headers' : {
             'Authorization': "Bearer " + user.services.google.accessToken,
             'Content-Type': 'application/json'
@@ -36,7 +40,7 @@ export  default class App extends Component {
             },
             "attendees": [
               {
-                "email": user.email,
+                "email": this.props.currentUser.services.google.email,
               },
             ]
           }
@@ -46,21 +50,17 @@ export  default class App extends Component {
   }
 
   render() {
-
+    console.log(this.props.currentUser);
+    this.agregar();
     return (
       <div>
-        <AccountsUIWrapper/>
-        <br/><br/><br/><br/>
-        <Well className="col-md-12">
-          <Thumbnail className="col-md-5 center">
-            Lista de Eventos por asignar
-          </Thumbnail>
-          <div className="col-md-1"></div>
-          <Thumbnail className="col-md-5 center">
-            Editar eventos creados
-          </Thumbnail>
+        <Well>
+          lista
         </Well>
       </div>
     );
   }
 }
+export default createContainer(() => {
+  return { currentUser: Meteor.user() };
+}, ListaTareasNoAsignadas);

@@ -3,9 +3,9 @@ import { Meteor } from "meteor/meteor";
 import { Well, Button, Thumbnail } from 'react-bootstrap';
 import AccountsUIWrapper from './AccountsUIWrapper.jsx';
 //import googleApis from './googleApi.js';
+import ListaTareasNoAsignadas from './ListaTareasNoAsignadas.jsx';
 
-
-export  default class App extends Component {
+export default class App extends Component {
 
   constructor(props) {
     super(props);
@@ -20,6 +20,7 @@ export  default class App extends Component {
         <Well className="col-md-12">
           <Thumbnail className="col-md-5 center">
             Lista de Eventos por asignar
+            <ListaTareasNoAsignadas/>   
           </Thumbnail>
           <div className="col-md-1"></div>
           <Thumbnail className="col-md-5 center">
