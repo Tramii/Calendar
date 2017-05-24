@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import { Meteor } from "meteor/meteor";
 import { Well, Button, Thumbnail } from 'react-bootstrap';
 import AccountsUIWrapper from './AccountsUIWrapper.jsx';
-import Sidebar from './Sidebar.jsx';
+import SideBar from './SideBar.jsx';
 //import googleApis from './googleApi.js';
 import ListaTareasNoAsignadas from './listaTareasNoAsignadas.jsx';
 
@@ -19,7 +19,7 @@ export default class App extends Component {
         <AccountsUIWrapper/>
         <br/><br/><br/><br/>
         <div className = "col-md-3 sidebar">
-          <Sidebar />
+          <SideBar />
         </div>
         <div className="col-md-9">
           <Well className="col-md-12">
