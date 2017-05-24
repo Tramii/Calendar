@@ -2,3 +2,11 @@
 .thumbnail {
     text-align: center;
 }
+
+.container-fluid {
+  padding: 0;
+}
+
+.sidebar{
+  padding: 0;
+}
