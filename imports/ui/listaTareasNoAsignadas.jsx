@@ -16,7 +16,7 @@ class ListaTareasNoAsignadas extends Component {
   }
 
   agregar(){
-    var event = {startTime:"2017-05-24 13:00:00" , endTime:"2017-05-24 14:00:00" , name:"hola", location:"Casa"};
+    var event = {text:"prueba",startTime:"2017-05-24 13:00:00" , endTime:"2017-05-24 14:00:00" , name:"hola", location:"Casa"};
     if (this.props.currentUser && this.props.currentUser.services
       && this.props.currentUser.services.google &&
           this.props.currentUser.services.google.accessToken) {
@@ -24,34 +24,55 @@ class ListaTareasNoAsignadas extends Component {
       var endTimeUTC = moment.utc(event.endTime, "YYYY-MM-DD HH:mm:ss").format();
       console.log("POSTINGGCAL");
       if (moment.utc().unix() < moment.utc(event.endTime).unix()) {
-        var id = HTTP.call('POST',"https://www.googleapis.com/calendar/v3/calendars/primary/events", {
+        var id =
+        HTTP.post("https://www.googleapis.com/calendar/v3/calendars/primary/events", {
+          'params': {key: "API KEY AQUI"},
           'headers' : {
-            'Authorization': "Bearer " + user.services.google.accessToken,
-            'Content-Type': 'application/json'
+            'Authorization': "Bearer " + this.props.currentUser.services.google.accessToken
           },
           'data': {
+            "description": event.text,
             "summary": event.name,
             "location": event.location,
             "start": {
               "dateTime": startTimeUTC,
+              'timeZone': 'America/Los_Angeles',
             },
             "end": {
               "dateTime": endTimeUTC,
+              'timeZone': 'America/Los_Angeles',
             },
-            "attendees": [
-              {
-                "email": this.props.currentUser.services.google.email,
-              },
-            ]
+            'reminders': {
+              'useDefault': false,
+              'overrides': [
+                {'method': 'email', 'minutes': 24 * 60},
+                {'method': 'popup', 'minutes': 10}
+              ]
+            },
+            'recurrence': [
+              'RRULE:FREQ=DAILY;COUNT=2'
+            ],
           }
-        });
+        }, (err, result) => {console.log(err);console.log(result);});
       }//end if moment
+    }//end if user
+  }
+
+
+  recuperar(){
+    if (this.props.currentUser && this.props.currentUser.services) {
+      var params = {access_token: this.props.currentUser.services.google.accessToken, part: "snippet",mine: "true"};
+        HTTP.get("https://www.googleapis.com/calendar/v3/calendars/primary/events",
+                {params: params},
+                (err, result) => {console.log(err);console.log(result);}
+        );
     }//end if user
   }
 
   render() {
     console.log(this.props.currentUser);
-    this.agregar();
+    //this.agregar();
+    this.recuperar();
     return (
       <div>
         <Well>
