@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import Circle from './Circle.jsx';
+import AccountsUIWrapper from './AccountsUIWrapper';
 
 export default class Nav extends React.Component {
   constructor(props) {
@@ -9,28 +9,17 @@ export default class Nav extends React.Component {
     }
   }
   render() {
-    return (<div style={{overflow:'visible'}}>
+    return (
+      <div className="navigbar head" >
          <nav className="navbar navbar-default">
         <div className="container-fluid">
-          <div style={{display:'flex'}}>
-            <ul style={{marginLeft:'auto'}} className="nav navbar-nav navbar-right">
-              <li
-                style={{borderLeft:'1px solid #2c3e50'}}>
-                <a
-                  style={{ display:'flex',alignItems:'center',alignContent:'center',fontSize:16}}
-                  href="#">
-                    <Circle
-                      fontSize="2vw"
-                      userName={this.props.userName}
-                      userImageUrl={this.props.userImageUrl}
-                    />&nbsp;Welcome, Robert
-                </a>
-                {this.state.showDropdown?
-                   <DropDown onClickProfile={this.props.onClickProfile}/>
-                  :
-                    null
-                 }
-               </li>
+          <div className="nav-things">
+            <img className="logo" src= 'NoBG.png' />
+            <ul className="nav navbar-nav navbar-right">
+              <li className="login" >
+                <AccountsUIWrapper />
+              </li>
+
             </ul>
           </div>
         </div>

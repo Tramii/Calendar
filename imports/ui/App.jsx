@@ -4,7 +4,7 @@ import { Well, Button, Thumbnail } from 'react-bootstrap';
 import AccountsUIWrapper from './AccountsUIWrapper.jsx';
 import SideBar from './SideBar.jsx';
 //import googleApis from './googleApi.js';
-import ListaTareasNoAsignadas from './listaTareasNoAsignadas.jsx';
+import ListaTareasNoAsignadas from './ListaTareasNoAsignadas.jsx';
 
 export default class App extends Component {
 

@@ -3,7 +3,18 @@
     text-align: center;
 }
 
+.head{
+  font-family: 'Didact Gothic', sans-serif;
+}
 
+.bod{
+  font-family: 'Open Sans', sans-serif;
+}
+
+#login-buttons .login-button, .accounts-dialog .login-button{
+    font-family: 'Didact Gothic', sans-serif !important;
+    font-size: 1em !important;
+}
 
 .sidebar{
   padding: 0 !important;
@@ -12,15 +23,6 @@
 html, body{
   height: 100%;
 }
-
-
-/*!
- * Start Bootstrap - Simple Sidebar HTML Template (https://startbootstrap.com)
- * Code licensed under the Apache License v2.0.
- * For details, see http://www.apache.org/licenses/LICENSE-2.0.
- */
-
-/* Toggle Styles */
 
 #wrapper {
     padding-left: 0;
@@ -151,4 +153,41 @@ body{
 
 .main{
   margin-left: 27em;
+}
+
+/*Upper Navbar*/
+.logo{
+  margin-top: 0.5em;
+  margin-left: 1em;
+  width: 18em;
+  height: 3.5em;
+}
+
+.navigbar{
+  overflow:'visible';
+}
+
+.nav-things{
+  display:'flex';
+}
+
+.navbar-right{
+  margin-left: auto !important;
+  margin-right: 1.5em !important;
+}
+
+.navbar{
+  margin-bottom: 0 !important;
+}
+
+.login{
+  margin-top: 1em;
+  margin-right: 2em;
+  margin-left: 5em;
+}
+
+#login-buttons .login-button, .accounts-dialog .login-button{
+  background: #6D9EEB !important;
+  border: 1px solid #6D9EEB !important;
+  border-radius: 20px !important;
 }

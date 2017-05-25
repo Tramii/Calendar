@@ -1,8 +1,6 @@
 import React, {Component} from "react";
-
 import {Well, Thumbnail, Button} from 'react-bootstrap';
-import ListaTareasNoAsignadas from './listaTareasNoAsignadas.jsx';
-import AccountsUIWrapper from './AccountsUIWrapper';
+import ListaTareasNoAsignadas from './ListaTareasNoAsignadas.jsx';
 
 export default class MainContent extends React.Component {
   constructor(props) {
@@ -15,7 +13,6 @@ export default class MainContent extends React.Component {
 render() {
     return (
       <div className="main">
-        <AccountsUIWrapper/>
         <br/><br/><br/><br/>
           <Well className="col-md-12">
             <Thumbnail className="col-md-5 center">
