@@ -12,7 +12,9 @@ class ListaTareasNoAsignadas extends Component {
   constructor(props) {
     super(props);
     this.user = "";
-
+    this.state={
+      "lista":{},
+    }
   }
 
   agregar(){
@@ -26,7 +28,7 @@ class ListaTareasNoAsignadas extends Component {
       if (moment.utc().unix() < moment.utc(event.endTime).unix()) {
         var id =
         HTTP.post("https://www.googleapis.com/calendar/v3/calendars/primary/events", {
-          'params': {key: "API KEY AQUI"},
+          'params': {key: "API KEYS AQUI"},
           'headers' : {
             'Authorization': "Bearer " + this.props.currentUser.services.google.accessToken
           },
@@ -49,9 +51,9 @@ class ListaTareasNoAsignadas extends Component {
                 {'method': 'popup', 'minutes': 10}
               ]
             },
-            'recurrence': [
+            /**'recurrence': [
               'RRULE:FREQ=DAILY;COUNT=2'
-            ],
+            ],*/
           }
         }, (err, result) => {console.log(err);console.log(result);});
       }//end if moment
@@ -64,7 +66,13 @@ class ListaTareasNoAsignadas extends Component {
       var params = {access_token: this.props.currentUser.services.google.accessToken, part: "snippet",mine: "true"};
         HTTP.get("https://www.googleapis.com/calendar/v3/calendars/primary/events",
                 {params: params},
-                (err, result) => {console.log(err);console.log(result);}
+                (err, result) => {
+                  console.log("error");
+                  console.log(err);
+                  console.log("result");
+                  console.log(result);
+                  this.setState({"lista":result.data});
+                }
         );
     }//end if user
   }
@@ -72,11 +80,22 @@ class ListaTareasNoAsignadas extends Component {
   render() {
     console.log(this.props.currentUser);
     //this.agregar();
-    this.recuperar();
+    if(!this.state.lista.items){
+      this.recuperar();
+    }
+
+    console.log("lista de eventos: ");
+    console.log(this.state.lista);
+
     return (
       <div>
         <Well>
-          lista
+          {(this.state.lista.items)?this.state.lista.items.map((event, index)=>{
+            //console.log(new Date (event.start.dateTime) > new Date());
+            if(new Date (event.start.dateTime) > new Date()){
+              return ("Evento: "+(event.summary)+"\n");
+            }
+          }):""}
         </Well>
       </div>
     );
