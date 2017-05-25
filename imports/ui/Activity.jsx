@@ -80,8 +80,8 @@ export default class Activity extends React.Component {
           <div className="col-md-3"></div>
           <Button className="col-md-6 actividad">
               {this.props.evento.summary}
-              <i className="fa fa-pencil" aria-hidden="true" onClick={()=>{this.put();}}></i>
-              <i className="fa fa-trash-o" aria-hidden="true" onClick={()=>{this.delete();}}></i>
+              <Button className="fa fa-pencil" aria-hidden="true" onClick={()=>{this.put();}}></Button>
+              <Button className="fa fa-trash-o" aria-hidden="true" onClick={()=>{this.delete();}}></Button>
           </Button>
           <div className="col-md-3"></div>
         </div>
