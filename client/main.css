@@ -159,9 +159,9 @@ html, body{
 /*Upper Navbar*/
 .logo{
   margin-top: 0.5em;
-  margin-left: 1em;
   width: 18em;
   height: 3.5em;
+  text-align: left !important;
 }
 
 .navigbar{
