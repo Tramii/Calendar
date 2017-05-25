@@ -27,4 +27,5 @@ momentjs:moment
 http
 fullcalendar:fullcalendar
 jss:fullcalendar-react
-kevohagan:sweetalert
+#kevohagan:sweetalert
+cleandersonlobo:sweetalert2

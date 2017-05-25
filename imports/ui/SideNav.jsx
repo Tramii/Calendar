@@ -14,6 +14,15 @@ class SideNav extends React.Component {
   }
 
   post(){
+    /**
+    //var event = {text:"prueba",startTime:"2017-05-24 13:00:00" , endTime:"2017-05-24 14:00:00" , name:"hola", location:"Casa"};
+    text (description)
+    startTime
+    endTime
+    name (summary)
+    location
+    hoursToFullfillTheTask
+    */
     swal.setDefaults({
       input: 'text',
       confirmButtonText: 'Next &rarr;',
@@ -32,7 +41,7 @@ class SideNav extends React.Component {
     ]
 
     swal.queue(steps).then(function (result) {
-      swal.resetDefaults()
+      swal.resetDefaults();
       swal({
         title: 'All done!',
         html:
@@ -47,7 +56,6 @@ class SideNav extends React.Component {
     });
   }
   postToGoogle(event){
-    //var event = {text:"prueba",startTime:"2017-05-24 13:00:00" , endTime:"2017-05-24 14:00:00" , name:"hola", location:"Casa"};
     if (this.props.currentUser && this.props.currentUser.services
       && this.props.currentUser.services.google &&
           this.props.currentUser.services.google.accessToken) {
@@ -84,7 +92,10 @@ class SideNav extends React.Component {
               'RRULE:FREQ=DAILY;COUNT=2'
             ],*/
           }
-        }, (err, result) => {console.log(err);console.log(result);});
+        }, (err, result) => {
+              console.log(err);
+              console.log(result);
+            });
       }//end if moment
     }//end if user
   }
@@ -104,23 +115,39 @@ class SideNav extends React.Component {
 
   delete(){
     swal({
-      title: "Are you sure?",
-      text: "You will not be able to recover this imaginary file!",
-      type: "warning",
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      type: 'warning',
       showCancelButton: true,
-      confirmButtonColor: "#DD6B55",
-      confirmButtonText: "Yes, delete it!",
-      closeOnConfirm: false,
-      html: false
-    }, function(){
-      swal("Deleted!",
-      "Your imaginary file has been deleted.",
-      "success");
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'No, cancel!',
+      confirmButtonClass: 'btn btn-success',
+      cancelButtonClass: 'btn btn-danger',
+      buttonsStyling: false
+    }).then(function () {
+      swal(
+        'Deleted!',
+        'Your file has been deleted.',
+        'success'
+      )
+    }, function (dismiss) {
+      // dismiss can be 'cancel', 'overlay',
+      // 'close', and 'timer'
+      if (dismiss === 'cancel') {
+        swal(
+          'Cancelled',
+          'Your imaginary file is safe :)',
+          'error'
+        )
+      }
     });
   }
 
   get(){
-    if (this.props.currentUser && this.props.currentUser.services) {
+    if (this.props.currentUser && this.props.currentUser.services
+      && this.props.currentUser.services.google && this.props.currentUser.services.google.accessToken) {
       var params = {access_token: this.props.currentUser.services.google.accessToken, part: "snippet",mine: "true"};
         HTTP.get("https://www.googleapis.com/calendar/v3/calendars/primary/events",
                 {params: params},
@@ -136,7 +163,7 @@ class SideNav extends React.Component {
   }
 
   render() {
-    if(!this.state.lista.items){
+    if(!this.state.lista.items && this.props.currentUser){
       this.get();
     }
     if(this.state.lista.items){
@@ -150,29 +177,37 @@ class SideNav extends React.Component {
     return (
         <div id="sidebar-wrapper">
           <br/><br/><br/>
-          <ul className="sidebar-nav row">
-            <li className="col-md-12 row">
+          {this.props.currentUser?
+            <ul className="sidebar-nav row">
+              <li className="col-md-12 row">
+                <div className="col-md-3"></div>
+                <div className="col-md-6 center">
+                  <Well onClick={()=>{this.post();}}>Añadir</Well>
+                </div>
+                <div className="col-md-3"></div>
+              </li>
+              <li className="col-md-12 row">
+                <div className="col-md-3"></div>
+                <div className="col-md-6 center">
+                  <Well onClick={()=>{this.put();}}>Editar</Well>
+                </div>
+                <div className="col-md-3"></div>
+              </li>
+              <li className="col-md-12 row">
+                <div className="col-md-3"></div>
+                <div className="col-md-6 center">
+                  <Well onClick={()=>{this.delete();}}>Borrar</Well>
+                </div>
+                <div className="col-md-3"></div>
+              </li>
+            </ul>
+          :
+            <div className="col-md-12 row">
               <div className="col-md-3"></div>
-              <div className="col-md-6 center">
-                <Well onClick={()=>{this.post();}}>Añadir</Well>
-              </div>
+              <Well  className="col-md-6 center">Loggeate!</Well>
               <div className="col-md-3"></div>
-            </li>
-            <li className="col-md-12 row">
-              <div className="col-md-3"></div>
-              <div className="col-md-6 center">
-                <Well onClick={()=>{this.put();}}>Editar</Well>
-              </div>
-              <div className="col-md-3"></div>
-            </li>
-            <li className="col-md-12 row">
-              <div className="col-md-3"></div>
-              <div className="col-md-6 center">
-                <Well onClick={()=>{this.delete();}}>Borrar</Well>
-              </div>
-              <div className="col-md-3"></div>
-            </li>
-          </ul>
+            </div>
+          }
         </div>
     );
   }
