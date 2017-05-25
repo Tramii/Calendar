@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import {Well, Thumbnail, Button} from 'react-bootstrap';
 import ListaTareasNoAsignadas from './ListaTareasNoAsignadas.jsx';
+import Calendar from './Calendar.jsx';
 
 export default class MainContent extends React.Component {
   constructor(props) {
@@ -13,7 +14,8 @@ export default class MainContent extends React.Component {
 render() {
     return (
       <div className="main">
-          <Well className="col-md-12">
+        <Calendar />
+          {/*<Well className="col-md-12">
             <Thumbnail className="col-md-5 center">
               Lista de Eventos por asignar
               <ListaTareasNoAsignadas/>
@@ -23,7 +25,7 @@ render() {
             <Thumbnail className="col-md-5 center">
               Editar eventos creados
             </Thumbnail>
-          </Well>
+          </Well>*/}
       </div>
       )
   }
