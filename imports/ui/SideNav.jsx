@@ -5,8 +5,9 @@ export default class SideNav extends React.Component {
     super(props)
   }
 
-  getSideBar() {
-    return (<div style={{width:'30%'}}>
+
+  render() {
+    return (
         <div id="sidebar-wrapper">
           <ul className="sidebar-nav">
             <li>
@@ -17,14 +18,6 @@ export default class SideNav extends React.Component {
             </li>
           </ul>
         </div>
-      </div>)
-  }
-  render() {
-    return (
-
-      <div style={{overflow:''}} id="wrapper">
-        {this.getSideBar()}
-      </div>
     );
   }
 }

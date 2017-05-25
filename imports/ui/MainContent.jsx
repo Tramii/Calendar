@@ -13,7 +13,6 @@ export default class MainContent extends React.Component {
 render() {
     return (
       <div className="main">
-        <br/><br/><br/><br/>
           <Well className="col-md-12">
             <Thumbnail className="col-md-5 center">
               Lista de Eventos por asignar

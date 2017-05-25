@@ -19,7 +19,6 @@ export default class Nav extends React.Component {
               <li className="login" >
                 <AccountsUIWrapper />
               </li>
-
             </ul>
           </div>
         </div>

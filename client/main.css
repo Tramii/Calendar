@@ -44,11 +44,11 @@ html, body{
     height: 100%;
     margin-left: -250px;
     overflow-y: auto;
-    background: white;
-  border-right:1px solid #ecf0f1;
-  margin-top:0;
-  top:92px;
-  padding-top:0;
+    background: #6D9EEB !important;
+    border-right:1px solid #ecf0f1;
+    margin-top:-2.4em !important;
+    top:92px;
+    padding-top:0;
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
@@ -153,6 +153,7 @@ body{
 
 .main{
   margin-left: 27em;
+  padding: 1em;
 }
 
 /*Upper Navbar*/
