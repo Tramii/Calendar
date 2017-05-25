@@ -18,39 +18,58 @@ class SideNav extends React.Component {
   post(){
     /**
     //var event = {text:"prueba",startTime:"2017-05-24 13:00:00" , endTime:"2017-05-24 14:00:00" , name:"hola", location:"Casa"};
-    text (description)
-    startTime
-    endTime
-    name (summary)
+  2  text (description)
+  3  startTime
+  4  endTime
+  1  name (summary)
+  5  reminder
     location
-    hoursToFullfillTheTask
+  6  hoursToFullfillTheTask
     */
     swal.setDefaults({
       input: 'text',
       confirmButtonText: 'Next &rarr;',
       showCancelButton: true,
       animation: false,
-      progressSteps: ['1', '2', '3']
-    })
+      progressSteps: ['1', '2', '3', '4', '5', '6']
+    });
 
     var steps = [
       {
-        title: 'Question 1',
-        text: 'Chaining swal2 modals is easy'
+        title: 'Nombre',
+        text: 'Dale a tu actividad un nombre unico'
       },
-      'Question 2',
-      'Question 3'
-    ]
+      {
+        title: 'Descripción',
+        text: 'Escribe (si lo deseas) una descripción de la actividad'
+      },
+      {
+        title: 'Fecha inicio',
+        text: 'Indica la fecha de inicio (2017-05-24 13:00:00)'
+      },
+      {
+        title: 'Fecha fin',
+        text: 'Indica la fecha de fin  (2017-05-24 14:00:00)'
+      },
+      {
+        title: 'Recordatorio',
+        text: 'Deseas obtener un mensaje de recordatorio faltando _ minutos para la actividad'
+      },
+      {
+        title: 'Pronostico de tiempo',
+        text: 'Cuantas horas deseas dedicar a esta actividad antes de su fecha de inicio?'
+      },
+    ];
 
     swal.queue(steps).then(function (result) {
       swal.resetDefaults();
       swal({
-        title: 'All done!',
+        title: 'Todo listo!',
         html:
           'Your answers: <pre>' +
             JSON.stringify(result) +
           '</pre>',
-        confirmButtonText: 'Lovely!',
+        confirmButtonText: 'Se creara tu evento ahora!',
         showCancelButton: false
       })
     }, function () {
@@ -102,19 +121,6 @@ class SideNav extends React.Component {
     }//end if user
   }
 
-  put(){
-    swal({
-      title: "An input!",
-      text: 'Write something interesting:',
-      type: 'input',
-      showCancelButton: true,
-      closeOnConfirm: false,
-      animation: "slide-from-top"
-    }, function(inputValue){
-      console.log("You wrote", inputValue);
-    });
-  }
-
   get(){
     if (this.props.currentUser && this.props.currentUser.services
       && this.props.currentUser.services.google && this.props.currentUser.services.google.accessToken) {
@@ -133,17 +139,19 @@ class SideNav extends React.Component {
   }
 
   render() {
-    if(!this.state.lista.items && this.props.currentUser){
-      this.get();
+    if(!this.state.lista.items ){
+      if(this.props.currentUser){
+        this.get();
+      }
     }
-    if(this.state.lista.items){
+    /**if(this.state.lista.items){
       this.state.lista.items.map((event, index)=>{
         //console.log(new Date (event.start.dateTime) > new Date());
         if(new Date (event.start.dateTime) > new Date()){
           console.log("Evento: "+(event.summary));
         }
       });
-    }
+    }*/
     return (
         <div id="sidebar-wrapper">
           <br/><br/><br/>
@@ -158,16 +166,16 @@ class SideNav extends React.Component {
                   <div className="col-md-3"></div>
                 </li>
               </ul>
-            {this.state.lista.items.map((event, index)=>{
+            <div className="col-md-12 row">{(this.state.lista.items)?this.state.lista.items.map((event, index)=>{
               if(new Date (event.start.dateTime) > new Date()){
-                return <Activity evento={event}></Activity>
+                return <Activity key={index} evento={event}></Activity>
               }
-            })}
+            }):""}</div>
            </div>
           :
             <div className="col-md-12 row">
               <div className="col-md-3"></div>
-              <Well  className="col-md-6 center">Loggeate!</Well>
+              <Well  className="col-md-6 center">Loggeate ahora!</Well>
               <div className="col-md-3"></div>
             </div>
           }
