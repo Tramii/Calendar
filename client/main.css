@@ -164,6 +164,8 @@ html, body{
   text-align: left !important;
 }
 
+
+
 .navigbar{
   overflow:'visible';
   position: fixed;
@@ -173,6 +175,7 @@ html, body{
 
 .nav-things{
   display:'flex';
+  text-align:left;
 }
 
 .navbar-right{
