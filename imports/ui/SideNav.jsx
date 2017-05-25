@@ -5,6 +5,8 @@ import { createContainer } from 'meteor/react-meteor-data';
 import moment from 'moment';
 import { HTTP } from 'meteor/http';
 
+import Activity from './Activity.jsx';
+
 class SideNav extends React.Component {
   constructor(props) {
     super(props);
@@ -113,38 +115,6 @@ class SideNav extends React.Component {
     });
   }
 
-  delete(){
-    swal({
-      title: 'Are you sure?',
-      text: "You won't be able to revert this!",
-      type: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!',
-      cancelButtonText: 'No, cancel!',
-      confirmButtonClass: 'btn btn-success',
-      cancelButtonClass: 'btn btn-danger',
-      buttonsStyling: false
-    }).then(function () {
-      swal(
-        'Deleted!',
-        'Your file has been deleted.',
-        'success'
-      )
-    }, function (dismiss) {
-      // dismiss can be 'cancel', 'overlay',
-      // 'close', and 'timer'
-      if (dismiss === 'cancel') {
-        swal(
-          'Cancelled',
-          'Your imaginary file is safe :)',
-          'error'
-        )
-      }
-    });
-  }
-
   get(){
     if (this.props.currentUser && this.props.currentUser.services
       && this.props.currentUser.services.google && this.props.currentUser.services.google.accessToken) {
@@ -178,29 +148,22 @@ class SideNav extends React.Component {
         <div id="sidebar-wrapper">
           <br/><br/><br/>
           {this.props.currentUser?
-            <ul className="sidebar-nav row">
-              <li className="col-md-12 row">
-                <div className="col-md-3"></div>
-                <div className="col-md-6 center">
-                  <Well onClick={()=>{this.post();}}>Añadir</Well>
-                </div>
-                <div className="col-md-3"></div>
-              </li>
-              <li className="col-md-12 row">
-                <div className="col-md-3"></div>
-                <div className="col-md-6 center">
-                  <Well onClick={()=>{this.put();}}>Editar</Well>
-                </div>
-                <div className="col-md-3"></div>
-              </li>
-              <li className="col-md-12 row">
-                <div className="col-md-3"></div>
-                <div className="col-md-6 center">
-                  <Well onClick={()=>{this.delete();}}>Borrar</Well>
-                </div>
-                <div className="col-md-3"></div>
-              </li>
-            </ul>
+            <div>
+              <ul className="sidebar-nav row">
+                <li className="col-md-12 row">
+                  <div className="col-md-3"></div>
+                  <div className="col-md-6 center">
+                    <Button onClick={()=>{this.post();}}>Añadir</Button>
+                  </div>
+                  <div className="col-md-3"></div>
+                </li>
+              </ul>
+            {this.state.lista.items.map((event, index)=>{
+              if(new Date (event.start.dateTime) > new Date()){
+                return <Activity evento={event}></Activity>
+              }
+            })}
+           </div>
           :
             <div className="col-md-12 row">
               <div className="col-md-3"></div>
