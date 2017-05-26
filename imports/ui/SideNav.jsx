@@ -59,8 +59,8 @@ class SideNav extends React.Component {
         }
       },
       {
-        title: 'Hours',
-        text: 'Insert the hour of beggining and hour of finish of your main event (24 Horas). Ejemplo: 12:00-13:00'
+        title: 'Deadline',
+        text: 'Insert the time of your deadline, e.g.: 12:00-13:00'
       },
       {
         title: 'Reminder',
