@@ -6,13 +6,7 @@
     text-align: center;
 }
 
-.head{
-  font-family: 'Didact Gothic', sans-serif;
-}
 
-.bod{
-  font-family: 'Open Sans', sans-serif;
-}
 
 #login-buttons .login-button, .accounts-dialog .login-button{
     font-family: 'Didact Gothic', sans-serif !important;
@@ -251,4 +245,22 @@ h1 {
 #calendar {
   width: 900px;
   margin-left: 4em;
+  font-family: 'Didact Gothic', sans-serif !important;
+}
+
+.login-display-name{
+  font-family: 'Open Sans', sans-serif !important;
+  font-size: 1.4em !important;
+}
+
+.head{
+  font-family: 'Didact Gothic', sans-serif;
+}
+
+.bod{
+  font-family: 'Open Sans', sans-serif !important;
+}
+
+.fc-widget-content, .fc-widget-header{
+  margin-right: 1.2em !important;
 }

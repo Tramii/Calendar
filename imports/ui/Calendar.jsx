@@ -1,14 +1,32 @@
 import React, { PropTypes } from 'react';
 import ReactDOM from 'react-dom';
-
+import { createContainer } from 'meteor/react-meteor-data';
 import { FullCalendar } from 'meteor/jss:fullcalendar-react';
 
-export default class Calendar extends React.Component {
+class Calendar extends React.Component {
   render() {
     return <div id="calendar"></div>;
   }
   componentDidMount() {
     $('#calendar').fullCalendar({
+      eventSources:[
+        {
+          events :[
+            {
+              title: 'Margarita maria gomez ballen ajdklasjd asdjsakj',
+              start: '2017-05-26'
+            }
+
+          ],
+          color: '#7FD62E',
+          className: 'bod',
+          editable: false,
+          durationEditable: false,
+          resourceEditable: false,
+          startEditable:false
+        }
+      ],
+
 			header: {
 				left: 'prev,next today',
 				center: 'title',
@@ -26,3 +44,6 @@ export default class Calendar extends React.Component {
     })
   }
 }
+export default createContainer(() => {
+  return { currentUser: Meteor.user() };
+}, Calendar);
