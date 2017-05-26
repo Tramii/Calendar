@@ -96,14 +96,14 @@ class SideNav extends React.Component {
       event.text = result[1];
       //"2017-05-24 13:00:00"
       event.startTime=(timeFilter.getFullYear())+"-"+(((timeFilter.getMonth()+1)< 10)?"0"+(timeFilter.getMonth()+1):(timeFilter.getMonth()+1))
-      +"-"+(((timeFilter.getDate()+1)< 10)?"0"+(timeFilter.getDate()+1):(timeFilter.getDate()+1))+" "+result[3].split("-")[0]+":00";
+      +"-"+(((timeFilter.getDate())< 10)?"0"+(timeFilter.getDate()):(timeFilter.getDate()))+" "+result[3].split("-")[0]+":00";
       event.endTime=(timeFilter.getFullYear())+"-"+(((timeFilter.getMonth()+1)< 10)?"0"+(timeFilter.getMonth()+1):(timeFilter.getMonth()+1))
-      +"-"+(((timeFilter.getDate()+1)< 10)?"0"+(timeFilter.getDate()+1):(timeFilter.getDate()+1))+" "+result[3].split("-")[1]+":00";
+      +"-"+(((timeFilter.getDate())< 10)?"0"+(timeFilter.getDate()):(timeFilter.getDate()))+" "+result[3].split("-")[1]+":00";
       event.reminder = parseInt(result[4]);
       var horasDedicadas = parseInt(result[5]);
       console.log("evento a mandar a google");
       console.log(event);
-      //this.postToGoogle(result);
+      this.postToGoogle(result);
     }, function () {
       swal.resetDefaults();
     });
@@ -147,6 +147,7 @@ class SideNav extends React.Component {
         }, (err, result) => {
               console.log(err);
               console.log(result);
+              this.get();
             });
       }//end if moment
     }//end if user
