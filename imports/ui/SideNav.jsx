@@ -34,6 +34,7 @@ class SideNav extends React.Component {
       progressSteps: ['1', '2', '3', '4', '5', '6']
     });
 
+
     var steps = [
       {
         title: 'Nombre',
@@ -45,11 +46,21 @@ class SideNav extends React.Component {
       },
       {
         title: 'Fecha inicio',
-        text: 'Indica la fecha de inicio (2017-05-24 13:00:00)'
+        html: '<div id="datepicker"></div>',
+        showConfirmButton: false,
+        input:false,
+        onOpen: function() {
+        	$('#datepicker').datepicker({
+          	onSelect: swal.clickConfirm
+          });
+        },
+        preConfirm: function() {
+          return Promise.resolve($('#datepicker').datepicker('getDate'));
+        }
       },
       {
-        title: 'Fecha fin',
-        text: 'Indica la fecha de fin  (2017-05-24 14:00:00)'
+        title: 'Horas',
+        text: 'Ingresa la hora inicio y hora fin separado por - (24 horas)'
       },
       {
         title: 'Recordatorio',
@@ -64,16 +75,17 @@ class SideNav extends React.Component {
     swal.queue(steps).then(function (result) {
       swal.resetDefaults();
       swal({
-        title: 'Todo listo!',
+        title: 'Todo listo, confirma para crear!',
         html:
           'Your answers: <pre>' +
             JSON.stringify(result) +
           '</pre>',
         confirmButtonText: 'Se creara tu evento ahora!',
-        showCancelButton: false
-      })
+        showCancelButton: true,
+      });
+      //this.postToGoogle(result);
     }, function () {
-      swal.resetDefaults()
+      swal.resetDefaults();
     });
   }
   postToGoogle(event){
