@@ -84,7 +84,7 @@ export default class Activity extends React.Component {
                 </strong>
               </div>
               <div className="col-md-4 task-butt">
-                <Button className="fa fa-pencil gray" aria-hidden="true" onClick={()=>{this.put();}}></Button>
+                {/*<Button className="fa fa-pencil gray" aria-hidden="true" onClick={()=>{this.put();}}></Button>*/}
                 {' '}
                 <Button className="fa fa-trash gray" aria-hidden="true" onClick={()=>{this.delete();}}></Button>
               </div>

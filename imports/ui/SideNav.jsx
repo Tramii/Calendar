@@ -270,7 +270,7 @@ class SideNav extends React.Component {
           :
             <div className="col-md-12 row">
               <div className="col-md-3"></div>
-              <Well  className="col-md-6 center">Loggeate ahora!</Well>
+              <h1 className="bod logintxt">Log in to organize your schedule</h1>
               <div className="col-md-3"></div>
             </div>
           }
