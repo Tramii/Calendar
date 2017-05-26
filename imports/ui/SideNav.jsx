@@ -262,7 +262,7 @@ class SideNav extends React.Component {
                 </li>
               </ul>
             <div className="col-md-12 row">{(this.state.lista.items)?this.state.lista.items.map((event, index)=>{
-              if(new Date (event.start.dateTime) > new Date()){
+              if(new Date (event.start.dateTime) > new Date() && !event.summary.startsWith("T.A.")){
                 return <Activity key={index} evento={event}></Activity>
               }
             }):""}</div>
