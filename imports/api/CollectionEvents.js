@@ -16,48 +16,27 @@ EventsCollection.deny({
 });
 
 Meteor.methods({
-  'recipes.insert'(recipe) {
-    // Make sure the user is logged in before inserting a task
-    if (!Meteor.userId()) {
-      throw new Meteor.Error('not-authorized');
-    }
-    const tipos = recipe.tipos;
-    if ((typeof tipos) !== 'object' || tipos.length === 0) {
-      throw new Meteor.Error('tipos is not well defined');
-    }
-
-    const likes = recipe.likes;
-    if ((typeof likes) !== 'number' || likes !== 0){
-      throw new Meteor.Error('likes is not well defined');
-    }
-
-    const username = recipe.username;
-    if ((typeof username) !== 'string' || username !==  Meteor.user().username) {
-      throw new Meteor.Error('username not valid');
-    }
-
-    const title = recipe.title;
-    if ((typeof title) !== 'string' || title.includes("{") || title.includes("[")) {
-      throw new Meteor.Error('title is not well defined');
-    }
-
-    const description = recipe.description;
-    if ((typeof description) !== 'string' || description.length > 100000) {
-      throw new Meteor.Error('description is not well defined');
-    }
-
-    const pictureGif = recipe.pictureGif;
-    if ((typeof pictureGif) !== 'string' || !pictureGif.includes("www")) {
-      throw new Meteor.Error('pictureGif is not well defined');
-    }
-
-    const Ingredients = recipe.Ingredients;
-    if ((typeof Ingredients) !== 'object' || Ingredients.length === 0) {
-      throw new Meteor.Error('Ingredients is not well defined');
-    }
-
-    UsersWithRecipesCollection.insert({
-      tipos, likes, username, title, description, pictureGif, Ingredients });
+  'get'() {
+    if (Meteor.user() && Meteor.user().services
+      && Meteor.user().services.google && Meteor.user().services.google.accessToken) {
+      var params = {
+        access_token: Meteor.user().services.google.accessToken,
+        part: "snippet",
+        mine: "true",
+        timeMin:'2017-05-24T10:00:00Z'
+      };
+        HTTP.get("https://www.googleapis.com/calendar/v3/calendars/primary/events",
+                {params: params},
+                (err, result) => {
+                  console.log("error");
+                  console.log(err);
+                  console.log("result");
+                  console.log(result);
+                  return result.data;
+                  //this.setState({"lista":result.data});
+                }
+        );
+    }//end if user
   },
   'recipes.remove'(recipeId) {
     /** check(recipeId, String);*/
