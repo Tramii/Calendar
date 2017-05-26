@@ -148,7 +148,7 @@ class SideNav extends React.Component {
         access_token: this.props.currentUser.services.google.accessToken,
         part: "snippet",
         mine: "true",
-        timeMin:new Date(),
+        timeMin:'2017-05-24T10:00:00Z'
       };
         HTTP.get("https://www.googleapis.com/calendar/v3/calendars/primary/events",
                 {params: params},

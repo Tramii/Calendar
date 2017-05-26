@@ -15,9 +15,9 @@ export default class Application extends React.Component {
       return (
         <div>
       <Nav />
-      <SideNav  />
+      <SideNav />
         <div>
-      <MainContent  />
+      <MainContent />
         </div>
     </div>)
     }
