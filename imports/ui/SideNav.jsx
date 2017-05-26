@@ -37,15 +37,15 @@ class SideNav extends React.Component {
 
     var steps = [
       {
-        title: 'Nombre',
-        text: 'Dale a tu actividad un nombre unico'
+        title: 'Name',
+        text: 'Give your activity a unique name'
       },
       {
-        title: 'Descripción',
-        text: 'Escribe (si lo deseas) una descripción de la actividad'
+        title: 'Description',
+        text: 'Write (if you wish) a description of the activity'
       },
       {
-        title: 'Fecha inicio',
+        title: 'Date of the main event',
         html: '<div id="datepicker"></div>',
         showConfirmButton: false,
         input:false,
@@ -59,30 +59,39 @@ class SideNav extends React.Component {
         }
       },
       {
-        title: 'Horas',
-        text: 'Ingresa la hora inicio y hora fin separado por - (24 horas)'
+        title: 'Hours',
+        text: 'Insert the hour of beggining and hour of finish of your main event - (24 hour)'
       },
       {
-        title: 'Recordatorio',
-        text: 'Deseas obtener un mensaje de recordatorio faltando _ minutos para la actividad'
+        title: 'Reminder',
+        text: 'You want to get a reminder of your events? YES or NO'
       },
       {
-        title: 'Pronostico de tiempo',
-        text: 'Cuantas horas deseas dedicar a esta actividad antes de su fecha de inicio?'
+        title: 'Time you want to invest',
+        text: 'How many hours do you want to invest before the main event begin?'
       },
     ];
 
     swal.queue(steps).then(function (result) {
       swal.resetDefaults();
       swal({
-        title: 'Todo listo, confirma para crear!',
+        title: 'All set, please confirm!',
         html:
           'Your answers: <pre>' +
             JSON.stringify(result) +
           '</pre>',
-        confirmButtonText: 'Se creara tu evento ahora!',
+        confirmButtonText: 'Create your event now!',
         showCancelButton: true,
       });
+//var event = {text:"prueba",startTime:"2017-05-24 13:00:00" , endTime:"2017-05-24 14:00:00" , name:"hola", location:"Casa"};
+      console.log("modal: ");
+      console.log(result);
+      var time = result[2];
+      var event = {};
+      event.name = result[0];
+      event.text = result[1];
+      event.startTime=time;
+      event.endTime=time;
       //this.postToGoogle(result);
     }, function () {
       swal.resetDefaults();
@@ -105,7 +114,6 @@ class SideNav extends React.Component {
           'data': {
             "description": event.text,
             "summary": event.name,
-            "location": event.location,
             "start": {
               "dateTime": startTimeUTC,
               'timeZone': 'America/Los_Angeles',
@@ -140,7 +148,7 @@ class SideNav extends React.Component {
         access_token: this.props.currentUser.services.google.accessToken,
         part: "snippet",
         mine: "true",
-        timeMin:'2017-05-24T10:00:00Z'
+        timeMin:new Date(),
       };
         HTTP.get("https://www.googleapis.com/calendar/v3/calendars/primary/events",
                 {params: params},
