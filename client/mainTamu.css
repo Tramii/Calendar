@@ -1,15 +1,11 @@
 .actividad{
   background-color: rgb(179, 224, 255);
 }
-.ui-datepicker-prev{
+.ui-datepicker-prev:after{
   content: "<" !important;
-  border-style: solid;
-  border-color: black;
 }
-.ui-datepicker-next{
+.ui-datepicker-next:after{
   content: ">" !important;
-  border-style: solid;
-  border-color: black
 }
 .ui-datepicker {
 	width: 17em;
