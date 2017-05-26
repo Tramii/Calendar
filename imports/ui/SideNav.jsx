@@ -151,7 +151,7 @@ class SideNav extends React.Component {
       var date1_ms = new Date();
       var date2_ms = timeFilter;
       var difference_ms = Math.abs(date1_ms - date2_ms);
-      var days= Math.round(difference_ms/ONE_DAY);
+      var days= Math.round(difference_ms/ONE_DAY)-1;
       if(days>0){
         var horasPorDia = horasDedicadas/days;
         //"2017-05-24 13:00:00"
@@ -262,7 +262,7 @@ class SideNav extends React.Component {
                 </li>
               </ul>
             <div className="col-md-12 row">{(this.state.lista.items)?this.state.lista.items.map((event, index)=>{
-              if(new Date (event.start.dateTime) > new Date()){
+              if(new Date (event.start.dateTime) > new Date() && !event.summary.startsWith("T.A.")){
                 return <Activity key={index} evento={event}></Activity>
               }
             }):""}</div>
