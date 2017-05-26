@@ -96,9 +96,15 @@ class SideNav extends React.Component {
       event.text = result[1];
       //"2017-05-24 13:00:00"
       event.startTime=(timeFilter.getFullYear())+"-"+(((timeFilter.getMonth()+1)< 10)?"0"+(timeFilter.getMonth()+1):(timeFilter.getMonth()+1))
-      +"-"+(((timeFilter.getDate())< 10)?"0"+(timeFilter.getDate()):(timeFilter.getDate()))+" "+(parseInt(result[3].split("-")[0].split(":")[0]))+(parseInt(result[3].split("-")[1].split(":")[1]))+":00";
+      +"-"+(((timeFilter.getDate())< 10)?"0"+(timeFilter.getDate()):(timeFilter.getDate()))+" "+
+      (((parseInt(result[3].split("-")[0].split(":")[0])+5) <10)?
+       '0'+(parseInt(result[3].split("-")[1].split(":")[0])+5):(parseInt(result[3].split("-")[1].split(":")[0])+5))+":00:00";
+      //(parseInt(result[3].split("-")[0].split(":")[0])+5)+"00:00";//(parseInt(result[3].split("-")[0].split(":")[1]))+":00";
       event.endTime=(timeFilter.getFullYear())+"-"+(((timeFilter.getMonth()+1)< 10)?"0"+(timeFilter.getMonth()+1):(timeFilter.getMonth()+1))
-      +"-"+(((timeFilter.getDate())< 10)?"0"+(timeFilter.getDate()):(timeFilter.getDate()))+" "+(parseInt(result[3].split("-")[1].split(":")[0]))+(parseInt(result[3].split("-")[1].split(":")[1]))+":00";
+      +"-"+(((timeFilter.getDate())< 10)?"0"+(timeFilter.getDate()):(timeFilter.getDate()))+" "+
+      (((parseInt(result[3].split("-")[1].split(":")[0])+5) <10)?
+       '0'+(parseInt(result[3].split("-")[1].split(":")[0])+5):(parseInt(result[3].split("-")[1].split(":")[0])+5))+":00:00";
+       //(parseInt(result[3].split("-")[1].split(":")[1]))+":00";
       event.reminder = parseInt(result[4]);
       var horasDedicadas = parseInt(result[5]);
 
