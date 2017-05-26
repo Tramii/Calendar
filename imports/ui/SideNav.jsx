@@ -60,11 +60,11 @@ class SideNav extends React.Component {
       },
       {
         title: 'Hours',
-        text: 'Insert the hour of beggining and hour of finish of your main event - (24 hour)'
+        text: 'Insert the hour of beggining and hour of finish of your main event (24 Horas). Ejemplo: 12:00-13:00'
       },
       {
         title: 'Reminder',
-        text: 'You want to get a reminder of your events? YES or NO'
+        text: 'You want to get a reminder of your events? Plese insert a number'
       },
       {
         title: 'Time you want to invest',
@@ -86,12 +86,23 @@ class SideNav extends React.Component {
 //var event = {text:"prueba",startTime:"2017-05-24 13:00:00" , endTime:"2017-05-24 14:00:00" , name:"hola", location:"Casa"};
       console.log("modal: ");
       console.log(result);
-      var time = result[2];
+      //console.log( JSON.stringify(result[2]));
+      var time = JSON.stringify(result[2]);
+      var timeFilter = new Date(time.split("T")[0]);
+      console.log("date");
+      console.log(timeFilter);
       var event = {};
       event.name = result[0];
       event.text = result[1];
-      event.startTime=time;
-      event.endTime=time;
+      //"2017-05-24 13:00:00"
+      event.startTime=(timeFilter.getFullYear())+"-"+(((timeFilter.getMonth()+1)< 10)?"0"+(timeFilter.getMonth()+1):(timeFilter.getMonth()+1))
+      +"-"+(((timeFilter.getDate()+1)< 10)?"0"+(timeFilter.getDate()+1):(timeFilter.getDate()+1))+" "+result[3].split("-")[0]+":00";
+      event.endTime=(timeFilter.getFullYear())+"-"+(((timeFilter.getMonth()+1)< 10)?"0"+(timeFilter.getMonth()+1):(timeFilter.getMonth()+1))
+      +"-"+(((timeFilter.getDate()+1)< 10)?"0"+(timeFilter.getDate()+1):(timeFilter.getDate()+1))+" "+result[3].split("-")[1]+":00";
+      event.reminder = parseInt(result[4]);
+      var horasDedicadas = parseInt(result[5]);
+      console.log("evento a mandar a google");
+      console.log(event);
       //this.postToGoogle(result);
     }, function () {
       swal.resetDefaults();
@@ -125,8 +136,8 @@ class SideNav extends React.Component {
             'reminders': {
               'useDefault': false,
               'overrides': [
-                {'method': 'email', 'minutes': 24 * 60},
-                {'method': 'popup', 'minutes': 10}
+                //{'method': 'email', 'minutes': 24 * 60},
+                {'method': 'popup', 'minutes': event.reminder}
               ]
             },
             /**'recurrence': [
