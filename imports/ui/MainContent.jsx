@@ -1,6 +1,5 @@
 import React, {Component} from "react";
 import {Well, Thumbnail, Button} from 'react-bootstrap';
-import ListaTareasNoAsignadas from './ListaTareasNoAsignadas.jsx';
 import Calendar from './Calendar.jsx';
 import Landing from './Landing.jsx';
 import { createContainer } from 'meteor/react-meteor-data';
