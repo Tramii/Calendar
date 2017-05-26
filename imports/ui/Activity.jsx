@@ -75,15 +75,21 @@ export default class Activity extends React.Component {
 
   render() {
     return (
-        <div className="col-md-12 row">
-          <br/><br/>
-          <div className="col-md-3"></div>
-          <Button className="col-md-6 actividad">
-              {this.props.evento.summary}
-              <Button className="fa fa-pencil" aria-hidden="true" onClick={()=>{this.put();}}></Button>
-              <Button className="fa fa-trash-o" aria-hidden="true" onClick={()=>{this.delete();}}></Button>
-          </Button>
-          <div className="col-md-3"></div>
+        <div>
+          <Thumbnail className="actividad bod">
+            <div className="row">
+              <div className="col-md-8">
+                <strong className="gray task-name">
+                  {this.props.evento.summary}
+                </strong>
+              </div>
+              <div className="col-md-4 task-butt">
+                <Button className="fa fa-pencil gray" aria-hidden="true" onClick={()=>{this.put();}}></Button>
+                {' '}
+                <Button className="fa fa-trash gray" aria-hidden="true" onClick={()=>{this.delete();}}></Button>
+              </div>
+            </div>
+          </Thumbnail>
         </div>
     );
   }

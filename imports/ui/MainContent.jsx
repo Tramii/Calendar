@@ -18,17 +18,6 @@ render() {
         <div className="col-md-9">
           <Calendar />
         </div>
-          {/*<Well className="col-md-12">
-            <Thumbnail className="col-md-5 center">
-              Lista de Eventos por asignar
-              <ListaTareasNoAsignadas/>
-            </Thumbnail>
-            <Button>Holaa</Button>
-            <div className="col-md-1"></div>
-            <Thumbnail className="col-md-5 center">
-              Editar eventos creados
-            </Thumbnail>
-          </Well>*/}
       </div>
       )
   }

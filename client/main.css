@@ -153,12 +153,11 @@ html, body{
 /*Upper Navbar*/
 .logo{
   margin-top: 0.5em;
+  margin-left: 3.5em;
   width: 18em;
   height: 3.5em;
   text-align: left !important;
 }
-
-
 
 .navigbar{
   overflow:'visible';
@@ -263,4 +262,24 @@ h1 {
 
 .fc-widget-content, .fc-widget-header{
   margin-right: 1.2em !important;
+}
+
+.thumbnail{
+  border: 1px solid #fff !important;
+  background: #fff !important;
+  border-radius: 0px 25px 25px 0px !important;
+  border-left: 6px solid #7FD62E !important;
+}
+
+.gray{
+  color: #67676C !important;
+}
+
+.task-name{
+  font-size: 1.2em;
+  text-align: left;
+}
+
+.task-butt{
+  text-align: right;
 }

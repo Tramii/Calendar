@@ -1,6 +1,3 @@
-.actividad{
-  background-color: rgb(179, 224, 255);
-}
 .ui-datepicker-prev:after{
   content: "<" !important;
 }
