@@ -306,4 +306,5 @@ h1 {
 }
 .but{
   border: solid 1px #fff !important;
+  margin-top: 0.3em;
 }

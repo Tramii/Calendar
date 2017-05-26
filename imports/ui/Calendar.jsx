@@ -86,6 +86,11 @@ class Calendar extends React.Component {
     return (<div id="calendar"></div>);
   }
 
+  componentDidMount() {
+    this.get(this.paint.bind(this));
+
+  }
+
   componentDidUpdate() {
     this.get(this.paint.bind(this));
 

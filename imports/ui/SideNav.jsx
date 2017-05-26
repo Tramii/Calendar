@@ -256,7 +256,7 @@ class SideNav extends React.Component {
                 <li className="col-md-12 row">
                   <div className="col-md-3"></div>
                   <div className="col-md-6 center green">
-                    <Button className="but" onClick={()=>{this.post();}}>
+                    <Button bsSize="large" className="but" onClick={()=>{this.post();}}>
                       <i className="fa fa-plus gray" aria-hidden="true" /><strong className="bod gray"> Add task</strong>
                     </Button>
                   </div>

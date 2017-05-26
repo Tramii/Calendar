@@ -1,13 +1,13 @@
 import React, {Component} from "react";
 import { Well, Button, Thumbnail } from 'react-bootstrap';
-
+import { HTTP } from 'meteor/http';
 
 export default class Activity extends React.Component {
   constructor(props) {
     super(props);
   }
 
-  delete(){
+  delete(id){
     swal({
       title: 'Are you sure?',
       text: "You won't be able to revert this!",
@@ -21,6 +21,24 @@ export default class Activity extends React.Component {
       cancelButtonClass: 'btn btn-danger',
       buttonsStyling: false
     }).then(function () {
+      if (Meteor.user() && Meteor.user().services
+        && Meteor.user().services.google && Meteor.user().services.google.accessToken) {
+        var params = {
+          access_token: Meteor.user().services.google.accessToken,
+          part: "snippet",
+          key: "AIzaSyAmqv6GP4s1FlH0WTzAn7AHPbJT9tYsQ9g",
+          mine: "true"
+        };
+          HTTP.del("https://www.googleapis.com/calendar/v3/calendars/primary/events/"+id,
+                  {params: params},
+                  (err, result) => {
+                    console.log("error");
+                    console.log(err);
+                    console.log("result");
+                    console.log(result);
+                  }
+          );
+      }//end if user
       swal(
         'Deleted!',
         'Your file has been deleted.',
@@ -86,7 +104,7 @@ export default class Activity extends React.Component {
               <div className="col-md-4 task-butt">
                 {/*<Button className="fa fa-pencil gray" aria-hidden="true" onClick={()=>{this.put();}}></Button>*/}
                 {' '}
-                <Button className="fa fa-trash gray" aria-hidden="true" onClick={()=>{this.delete();}}></Button>
+                <Button className="fa fa-trash gray" aria-hidden="true" onClick={()=>{this.delete(this.props.evento.id);}}></Button>
               </div>
             </div>
           </Thumbnail>
