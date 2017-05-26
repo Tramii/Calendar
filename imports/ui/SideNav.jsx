@@ -96,61 +96,120 @@ class SideNav extends React.Component {
       event.text = result[1];
       //"2017-05-24 13:00:00"
       event.startTime=(timeFilter.getFullYear())+"-"+(((timeFilter.getMonth()+1)< 10)?"0"+(timeFilter.getMonth()+1):(timeFilter.getMonth()+1))
-      +"-"+(((timeFilter.getDate()+1)< 10)?"0"+(timeFilter.getDate()+1):(timeFilter.getDate()+1))+" "+result[3].split("-")[0]+":00";
+      +"-"+(((timeFilter.getDate())< 10)?"0"+(timeFilter.getDate()):(timeFilter.getDate()))+" "+result[3].split("-")[0]+":00";
       event.endTime=(timeFilter.getFullYear())+"-"+(((timeFilter.getMonth()+1)< 10)?"0"+(timeFilter.getMonth()+1):(timeFilter.getMonth()+1))
-      +"-"+(((timeFilter.getDate()+1)< 10)?"0"+(timeFilter.getDate()+1):(timeFilter.getDate()+1))+" "+result[3].split("-")[1]+":00";
+      +"-"+(((timeFilter.getDate())< 10)?"0"+(timeFilter.getDate()):(timeFilter.getDate()))+" "+result[3].split("-")[1]+":00";
       event.reminder = parseInt(result[4]);
       var horasDedicadas = parseInt(result[5]);
+
       console.log("evento a mandar a google");
       console.log(event);
-      //this.postToGoogle(result);
-    }, function () {
+      //this.postToGoogle(event);
+
+      if (Meteor.user() && Meteor.user().services
+        && Meteor.user().services.google &&
+            Meteor.user().services.google.accessToken) {
+        var startTimeUTC = moment.utc(event.startTime, "YYYY-MM-DD HH:mm:ss").format();
+        var endTimeUTC = moment.utc(event.endTime, "YYYY-MM-DD HH:mm:ss").format();
+        console.log("POSTINGGCAL");
+        if (moment.utc().unix() < moment.utc(event.endTime).unix()) {
+          var id =
+          HTTP.post("https://www.googleapis.com/calendar/v3/calendars/primary/events", {
+            'params': {key: "AIzaSyAmqv6GP4s1FlH0WTzAn7AHPbJT9tYsQ9g"},
+            'headers' : {
+              'Authorization': "Bearer " + Meteor.user().services.google.accessToken
+            },
+            'data': {
+              "description": event.text,
+              "summary": event.name,
+              "start": {
+                "dateTime": startTimeUTC,
+                'timeZone': "America/Bogota",
+              },
+              "end": {
+                "dateTime": endTimeUTC,
+                'timeZone': "America/Bogota",
+              },
+              'reminders': {
+                'useDefault': false,
+                'overrides': [
+                  //{'method': 'email', 'minutes': 24 * 60},
+                  {'method': 'popup', 'minutes': event.reminder}
+                ]
+              },
+              /**'recurrence': [
+                'RRULE:FREQ=DAILY;COUNT=2'
+              ],*/
+            }
+          }, (err, result) => {
+                console.log(err);
+                console.log(result);
+              });
+        }//end if moment
+      }//end if user
+      var ONE_DAY = 1000 * 60 * 60 * 24;
+      var date1_ms = new Date();
+      var date2_ms = timeFilter;
+      var difference_ms = Math.abs(date1_ms - date2_ms);
+      var days= Math.round(difference_ms/ONE_DAY);
+      if(days>0){
+        var horasPorDia = horasDedicadas/days;
+        //"2017-05-24 13:00:00"
+        for(var i=1;i<=days;i++){
+          var tomorrow = new Date();
+          tomorrow.setDate(tomorrow.getDate()+i);
+          //a cada dia le voy a asignar horasPorDia horas
+          //por ahora voy a poner todo desde las 7 hastas las horas que pida
+          var aconvertir = (tomorrow.getFullYear())+"-"+(((tomorrow.getMonth()+1)< 10)?"0"+(tomorrow.getMonth()+1):(tomorrow.getMonth()+1))
+          +"-"+(((tomorrow.getDate())< 10)?"0"+(tomorrow.getDate()):(tomorrow.getDate()));
+          var diaActualI = moment.utc(aconvertir+" "+"07:00:00", "YYYY-MM-DD HH:mm:ss").format();
+          var diaActualF = moment.utc(aconvertir+" "+(((7+horasPorDia)<10)?"0"+(7+horasPorDia):(7+horasPorDia))+"00:00", "YYYY-MM-DD HH:mm:ss").format();
+          var post=HTTP.post("https://www.googleapis.com/calendar/v3/calendars/primary/events", {
+            'params': {key: "AIzaSyAmqv6GP4s1FlH0WTzAn7AHPbJT9tYsQ9g"},
+            'headers' : {
+              'Authorization': "Bearer " + Meteor.user().services.google.accessToken
+            },
+            'data': {
+              "description": "HELPER"+ event.text,
+              "summary": "T.A. "+ event.name,
+              "start": {
+                "dateTime": diaActualI,
+                'timeZone': "America/Bogota",
+              },
+              "end": {
+                "dateTime": diaActualF,
+                'timeZone': "America/Bogota",
+              },
+              'reminders': {
+                'useDefault': false,
+                'overrides': [
+                  //{'method': 'email', 'minutes': 24 * 60},
+                  {'method': 'popup', 'minutes': event.reminder}
+                ]
+              },
+              /**'recurrence': [
+                'RRULE:FREQ=DAILY;COUNT=2'
+              ],*/
+            }
+          }, (err, result) => {
+                console.log(err);
+                console.log(result);
+              });
+        }
+      }
+      else{
+        swal({
+          title: 'oh oh',
+          text: 'No days remaining to the event! get to work, we cant do anything',
+          showCancelButton: true,
+        });
+      }
+    },  ()=> {
       swal.resetDefaults();
     });
+
   }
-  postToGoogle(event){
-    if (this.props.currentUser && this.props.currentUser.services
-      && this.props.currentUser.services.google &&
-          this.props.currentUser.services.google.accessToken) {
-      var startTimeUTC = moment.utc(event.startTime, "YYYY-MM-DD HH:mm:ss").format();
-      var endTimeUTC = moment.utc(event.endTime, "YYYY-MM-DD HH:mm:ss").format();
-      console.log("POSTINGGCAL");
-      if (moment.utc().unix() < moment.utc(event.endTime).unix()) {
-        var id =
-        HTTP.post("https://www.googleapis.com/calendar/v3/calendars/primary/events", {
-          'params': {key: "API KEYS AQUI"},
-          'headers' : {
-            'Authorization': "Bearer " + this.props.currentUser.services.google.accessToken
-          },
-          'data': {
-            "description": event.text,
-            "summary": event.name,
-            "start": {
-              "dateTime": startTimeUTC,
-              'timeZone': 'America/Los_Angeles',
-            },
-            "end": {
-              "dateTime": endTimeUTC,
-              'timeZone': 'America/Los_Angeles',
-            },
-            'reminders': {
-              'useDefault': false,
-              'overrides': [
-                //{'method': 'email', 'minutes': 24 * 60},
-                {'method': 'popup', 'minutes': event.reminder}
-              ]
-            },
-            /**'recurrence': [
-              'RRULE:FREQ=DAILY;COUNT=2'
-            ],*/
-          }
-        }, (err, result) => {
-              console.log(err);
-              console.log(result);
-            });
-      }//end if moment
-    }//end if user
-  }
+
 
   get(){
     if (this.props.currentUser && this.props.currentUser.services
