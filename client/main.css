@@ -275,6 +275,10 @@ h1 {
   color: #67676C !important;
 }
 
+.white{
+  color: #fff !important;
+}
+
 .task-name{
   font-size: 1.2em;
   text-align: left;
@@ -286,4 +290,20 @@ h1 {
 
 .logintxt{
   color: #FFF;
+  margin: 0em 1em;
+}
+
+.logfa{
+  margin-top: 5em;
+}
+
+.blue{
+  color: #6D9EEB !important;
+}
+
+.green{
+  color: #7FD62E !important;
+}
+.but{
+  border: solid 1px #fff !important;
 }

@@ -255,8 +255,10 @@ class SideNav extends React.Component {
               <ul className="sidebar-nav row">
                 <li className="col-md-12 row">
                   <div className="col-md-3"></div>
-                  <div className="col-md-6 center">
-                    <Button onClick={()=>{this.post();}}>Añadir</Button>
+                  <div className="col-md-6 center green">
+                    <Button className="but" onClick={()=>{this.post();}}>
+                      <i className="fa fa-plus gray" aria-hidden="true" /><strong className="bod gray"> Add task</strong>
+                    </Button>
                   </div>
                   <div className="col-md-3"></div>
                 </li>
@@ -268,10 +270,9 @@ class SideNav extends React.Component {
             }):""}</div>
            </div>
           :
-            <div className="col-md-12 row">
-              <div className="col-md-3"></div>
-              <h1 className="bod logintxt">Log in to organize your schedule</h1>
-              <div className="col-md-3"></div>
+            <div className="logfa">
+              <i className="fa fa-sign-in fa-5x white" aria-hidden="true" />
+              <h1 className="head logintxt">Log in to organize your schedule</h1>
             </div>
           }
         </div>
