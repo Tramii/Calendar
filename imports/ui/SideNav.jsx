@@ -151,7 +151,7 @@ class SideNav extends React.Component {
       var date1_ms = new Date();
       var date2_ms = timeFilter;
       var difference_ms = Math.abs(date1_ms - date2_ms);
-      var days= Math.round(difference_ms/ONE_DAY);
+      var days= Math.round(difference_ms/ONE_DAY)-1;
       if(days>0){
         var horasPorDia = horasDedicadas/days;
         //"2017-05-24 13:00:00"
