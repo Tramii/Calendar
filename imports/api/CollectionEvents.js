@@ -38,51 +38,14 @@ Meteor.methods({
         );
     }//end if user
   },
-  'recipes.remove'(recipeId) {
+  'events.remove'(eventID) {
     /** check(recipeId, String);*/
     if (!Meteor.userId()) {
       throw new Meteor.Error('not-authorized');
     }
     // si aqui mandan recipesID {} borraria todas las recetas!!
-    if (((typeof recipeId) === 'string') && !recipeId.includes("{")){
-      UsersWithRecipesCollection.remove(recipeId);
+    if (((typeof eventID) === 'string') && !eventID.includes("{")){
+      EventsCollection.remove(eventID);
     }
   },
-  'recipesLike.update'(recipesId) {
-    /** check(recipesId, String);*/
-    // si aqui mandan recipesID {} sin seguridad le daria like a todo!!
-    if (((typeof recipesId) === 'string') && !recipesId.includes("{")) {
-      UsersWithRecipesCollection.update(recipesId, {
-        $inc: { likes: 1 }
-      });
-    }
-  }, /**
-  'recipes.findAll'() {
-    UsersWithRecipesCollection.find({}, { sort: { likes: -1 } }).fetch()
-  },
-  'user.points'(){
-    if (!Meteor.userId()) {
-      throw new Meteor.Error('not-authorized');
-    }
-    UsersWithRecipesCollection.find({}).fetch();
-  },*/
 });
-
-/**
-export const updateText = new ValidatedMethod({
-  name: 'todos.updateText',
-  validate: new SimpleSchema({
-    todoId: { type: String },
-    newText: { type: String }
-  }).validator(),
-  run({ todoId, newText }) {
-    const todo = Todos.findOne(todoId);
-    if (!todo.editableBy(this.userId)) {
-      throw new Meteor.Error('todos.updateText.unauthorized',
-        'Cannot edit todos in a private list that is not yours');
-    }
-    Todos.update(todoId, {
-      $set: { text: newText }
-    });
-  }
-});*/
