@@ -31,3 +31,6 @@ jss:fullcalendar-react
 cleandersonlobo:sweetalert2
 jquery
 mrt:jquery-ui
+lmieulet:meteor-coverage
+practicalmeteor:mocha@2.4.5_6
+practicalmeteor:mocha-console-runner
